@@ -35,8 +35,9 @@ public class Game {
         Location frankensteinsLab = new Location("Frankensteins Lab", "Short description of room", "long description of room");
         Location dragonLair = new Location("Dragon Lair", "Short description of room", "long description of room");
 
-        Item itemShield = new Item("shield", "long description");
-        Item itemPotion = new Item("Potion", "long description");
+        Item itemShield = new Item("shield", "long description", false);
+        Item itemSword = new Item("sword", "long description", false);
+        Item itemPotion = new Item("Red Potion", "long description", true);
         
 
         corridorOfCastle.setExit("Haunted Library", hauntedLibrary);
@@ -49,8 +50,9 @@ public class Game {
         frankensteinsLab.setExit("Haunted Library", hauntedLibrary);
         dragonLair.setExit("Draculas Bedroom", draculasBedroom);
 
-        corridorOfCastle.setItem("shield", itemShield);
-        frankensteinsLab.setItem("Potion", itemPotion);
+        corridorOfCastle.setItem("Shield", itemShield);
+        corridorOfCastle.setItem("Sword", itemSword);
+        frankensteinsLab.setItem("Red Potion", itemPotion);
         /*
          * // delete this line 
         Command command = parser.getCommand(); 
@@ -69,7 +71,6 @@ public class Game {
         while(true) {  
         	System.out.println(player.getDamage() + " is the amount of damage that " + player.getName() + " inflicts on enemies");
         	System.out.println(dragon.getDamage() + " is how much damage the dragon does"); 
-        	player.setDamage(8888);
         	System.out.println(player.getDamage() + " is the amount of damage that " + player.getName() + " inflicts on enemies");
         Command command = parser.getCommand();
             try {
@@ -104,8 +105,21 @@ public class Game {
             case "drink":
                 drink(command);
                 break;
+            case "toss":
+            	toss(command);
+            	break;
+            case "hit":
+            	hit(command);
+            	break;
         }
     }
+    public void hit(Command command) {
+    	String thingToHit = " ";
+    	if(!command.hasSecondWord());
+    		System.out.println("hit what?");
+    		return;
+    }
+    
 
     public void drink(Command command) {
         String thingToDrink = ""; 
@@ -120,13 +134,13 @@ public class Game {
             thingToDrink = command.getSecondWord()+ command.getLine();
         }
         
-        
         Item itemToDrink = player.removeItem(thingToDrink);
-        if(item != null) {
+        if(itemToDrink != null) {
             System.out.println("You can't drink that");
             return;
         }
         else {
+        	//check drinkable boolean
             player.setDamage(150);
             //what happens when you drink this thing
             //if (getItems counter, and has it been used less than a certain amount of times
@@ -135,7 +149,36 @@ public class Game {
         }
        
     }
-
+    
+    
+    public void toss(Command command) {
+        String thingToToss = ""; 
+        if(!command.hasSecondWord()) {
+            System.out.println("toss what?");
+            return;
+        }
+        if (!command.hasLine()) {
+            thingToToss = command.getSecondWord();
+        }
+        else if (command.hasLine()) {
+            thingToToss = command.getSecondWord()+ command.getLine();
+        }
+        
+        
+        Item itemToToss = player.removeItem(thingToToss);
+        if(item != null) {
+            System.out.println("You can't toss that");
+            return;
+        }
+        else {
+            dragon.setDamage(5);
+            //what happens when you drink this thing
+            //if (getItems counter, and has it been used less than a certain amount of times
+                // if less than desired amount, use GET 
+                // if more than desired amount, use REMOVE
+        }
+       
+    }
         public void inspect(Command command) {
         String printString = "inspecting ";
         String thingToInspect = null;
@@ -164,21 +207,29 @@ public class Game {
         System.out.println(printString);
     }
 
-    public void grab(Command command) {
-        if(!command.hasSecondWord()) {
-            System.out.println("grab what?");
-            return;
+        public void grab(Command command) {
+        	String itemToGrab = "";
+            if(!command.hasSecondWord()) {
+                System.out.println("grab what?");
+                return;
+            }
+            if (!command.hasLine()) {
+            	itemToGrab = command.getSecondWord();
+            }
+            
+            else if (command.hasLine()) {
+            	itemToGrab = command.getSecondWord() + command.getLine();
+            }
+            String item = command.getSecondWord();
+            Item itemGrab = currentLocation.removeItem(item);
+            if(itemGrab == null) {
+                System.out.println("you can't grab that");
+                return;
+            }
+            else { 
+                player.setItem(item, itemGrab);
+            }
         }
-        String item = command.getSecondWord();
-        Item itemToGrab = currentLocation.removeItem(item);
-        if(itemToGrab == null) {
-            System.out.println("you can't grab that");
-            return;
-        }
-        else {
-            player.setItem(item, itemToGrab);
-        }
-    }
 
     public void drop(Command command) {
         if(!command.hasSecondWord()) {
