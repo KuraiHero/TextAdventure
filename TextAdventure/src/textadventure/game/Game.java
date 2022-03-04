@@ -37,8 +37,8 @@ public class Game {
 
         Item itemShield = new Item("shield", "long description", false);
         Item itemSword = new Item("sword", "long description", false);
-        Item itemPotion = new Item("Red Potion", "long description", true);
-        
+        Item itemRedPotion = new Item("Red Potion", "long description", true);
+        Item itemGreenPotion = new Item("Green Potion", "long description", true);
 
         corridorOfCastle.setExit("Haunted Library", hauntedLibrary);
         corridorOfCastle.setExit("Draculas Bedroom", draculasBedroom);
@@ -52,7 +52,8 @@ public class Game {
 
         corridorOfCastle.setItem("Shield", itemShield);
         corridorOfCastle.setItem("Sword", itemSword);
-        frankensteinsLab.setItem("Red Potion", itemPotion);
+        frankensteinsLab.setItem("Red Potion", itemRedPotion);
+        frankensteinsLab.setItem("Green Potion", itemGreenPotion);
         /*
          * // delete this line 
         Command command = parser.getCommand(); 
@@ -108,6 +109,9 @@ public class Game {
             case "toss":
             	toss(command);
             	break;
+            case "help":
+            	System.out.println("The offered moves are go, grab, drop, inspect, drink, toss, hit");
+            	break;
             case "hit":
             	hit(command);
             	break;
@@ -122,20 +126,20 @@ public class Game {
     
 
     public void drink(Command command) {
-        String thingToDrink = ""; 
+        String toDrink = ""; 
         if(!command.hasSecondWord()) {
             System.out.println("drink what?");
             return;
         }
         if (!command.hasLine()) {
-            thingToDrink = command.getSecondWord();
+            toDrink = command.getSecondWord();
         }
         else if (command.hasLine()) {
-            thingToDrink = command.getSecondWord()+ command.getLine();
+            toDrink = command.getSecondWord()+ command.getLine();
         }
         
-        Item itemToDrink = player.removeItem(thingToDrink);
-        if(itemToDrink != null) {
+        toDrink = player.removeItem(toDrink);
+        if(toDrink != null) {
             System.out.println("You can't drink that");
             return;
         }
@@ -148,6 +152,30 @@ public class Game {
                 // if more than desired amount, use REMOVE
         }
        
+    }
+    
+    public void grab(Command command) {
+    	String toGrab = "";
+        if(!command.hasSecondWord()) {
+            System.out.println("grab what?");
+            return;
+        }
+        if (!command.hasLine()) {
+        	toGrab = command.getSecondWord();
+        }
+        
+        else if (command.hasLine()) {
+        	toGrab = command.getSecondWord() + command.getLine();
+        }
+        String item = command.getSecondWord();
+        toGrab = currentLocation.removeItem(toGrab);
+        if(toGrab == null) {
+            System.out.println("you can't grab that");
+            return;
+        }
+        else { 
+            player.setItem(toGrab, item);
+        }
     }
     
     
@@ -207,29 +235,7 @@ public class Game {
         System.out.println(printString);
     }
 
-        public void grab(Command command) {
-        	String itemToGrab = "";
-            if(!command.hasSecondWord()) {
-                System.out.println("grab what?");
-                return;
-            }
-            if (!command.hasLine()) {
-            	itemToGrab = command.getSecondWord();
-            }
-            
-            else if (command.hasLine()) {
-            	itemToGrab = command.getSecondWord() + command.getLine();
-            }
-            String item = command.getSecondWord();
-            Item itemGrab = currentLocation.removeItem(item);
-            if(itemGrab == null) {
-                System.out.println("you can't grab that");
-                return;
-            }
-            else { 
-                player.setItem(item, itemGrab);
-            }
-        }
+
 
     public void drop(Command command) {
         if(!command.hasSecondWord()) {
