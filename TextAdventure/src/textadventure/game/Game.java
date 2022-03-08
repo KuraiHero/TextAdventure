@@ -7,6 +7,9 @@ public class Game {
     private Player dragon; 
     private Item item;
     private CLS cls_var;
+    
+    Item itemRedPotion;
+    Item itemGreenPotion;
 
     public Game() {
         parser = new Parser();
@@ -37,8 +40,8 @@ public class Game {
 
         Item itemShield = new Item("shield", "long description", false);
         Item itemSword = new Item("sword", "long description", false);
-        Item itemRedPotion = new Item("Red Potion", "long description", true);
-        Item itemGreenPotion = new Item("Green Potion", "long description", true);
+        itemRedPotion = new Item("Red Potion", "long description", true);
+        itemGreenPotion = new Item("Green Potion", "long description", true);
 
         corridorOfCastle.setExit("Haunted Library", hauntedLibrary);
         corridorOfCastle.setExit("Draculas Bedroom", draculasBedroom);
@@ -138,14 +141,20 @@ public class Game {
             toDrink = command.getSecondWord()+ command.getLine();
         }
         
-        toDrink = player.removeItem(toDrink);
-        if(toDrink != null) {
+        Item item = player.removeItem(toDrink);
+        if(item == null) {
             System.out.println("You can't drink that");
             return;
         }
         else {
         	//check drinkable boolean
+        	if(item.equals(itemRedPotion)) {
             player.setDamage(150);
+        	}
+        	else if(item.equals(itemGreenPotion)) {
+        		player.setDamage(5);
+        	}
+        		
             //what happens when you drink this thing
             //if (getItems counter, and has it been used less than a certain amount of times
                 // if less than desired amount, use GET 
@@ -167,9 +176,8 @@ public class Game {
         else if (command.hasLine()) {
         	toGrab = command.getSecondWord() + command.getLine();
         }
-        String item = command.getSecondWord();
-        toGrab = currentLocation.removeItem(toGrab);
-        if(toGrab == null) {
+        Item item = currentLocation.removeItem(toGrab);
+        if(item == null) {
             System.out.println("you can't grab that");
             return;
         }
@@ -199,7 +207,12 @@ public class Game {
             return;
         }
         else {
-            dragon.setDamage(5);
+        	if(item.equals(itemRedPotion)) {
+                dragon.setDamage(150);
+            	}
+            	else if(item.equals(itemGreenPotion)) {
+            		dragon.setDamage(5);
+            	}
             //what happens when you drink this thing
             //if (getItems counter, and has it been used less than a certain amount of times
                 // if less than desired amount, use GET 
