@@ -121,12 +121,24 @@ public class Game {
         }
     }
     public void hit(Command command) {
-    	String thingToHit = " ";
+    	String toHit = " ";
     	if(!command.hasSecondWord());
     		System.out.println("hit what?");
     		return;
     }
-    
+    if (!command.hasLine()) {
+    	toHit= command.getSecondWord();
+    }
+    else if(command.hasLine()) {
+    	toHit = command.getSecondWord() + command.getLine();
+    }
+    if(item!=null) {
+    	System.out.println("You can't hit that");
+        return;
+    }
+    else {
+    	System.out.println("You hit the dragon for "+ player.damage() + " hp"); 
+    }
 
     public void drink(Command command) {
         String toDrink = ""; 
