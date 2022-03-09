@@ -9,7 +9,7 @@ public class Player {
     private int hp;
     private int damage;
     
-    
+    //write a method to get the hashmap
     public Player(String name, int hp, int damage) {
         inventory = new HashMap<>();
         this.name = name; 
@@ -32,6 +32,9 @@ public class Player {
     
     public void takeDamage(int value) {
     	hp += value; 
+    }
+    public HashMap <String, Item> getInventory() {
+    	return inventory;
     }
     
     

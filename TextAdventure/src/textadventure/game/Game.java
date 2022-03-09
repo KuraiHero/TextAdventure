@@ -10,6 +10,8 @@ public class Game {
     
     Item itemRedPotion;
     Item itemGreenPotion;
+    Item itemSword;
+    Location dragonLair;
 
     public Game() {
         parser = new Parser();
@@ -36,10 +38,10 @@ public class Game {
         Location hauntedLibrary = new Location("Haunted Library", "Short description of room", "long description of room");
         Location draculasBedroom = new Location("Draculas Bedroom", "Short description of room", "long description of room");
         Location frankensteinsLab = new Location("Frankensteins Lab", "Short description of room", "long description of room");
-        Location dragonLair = new Location("Dragon Lair", "Short description of room", "long description of room");
+        dragonLair = new Location("Dragon Lair", "Short description of room", "long description of room");
 
         Item itemShield = new Item("shield", "long description", false);
-        Item itemSword = new Item("sword", "long description", false);
+        itemSword = new Item("sword", "long description", false);
         itemRedPotion = new Item("Red Potion", "long description", true);
         itemGreenPotion = new Item("Green Potion", "long description", true);
 
@@ -122,8 +124,8 @@ public class Game {
     }
     public void hit(Command command) {
     	String toHit = " ";
-    	if(!command.hasSecondWord());
-    		System.out.println("hit what?");
+    	if(!currentLocation.equals(dragonLair) || !command.hasSecondWord()) {
+    		System.out.println("you can't fight anything");
     		return;
     }
     if (!command.hasLine()) {
@@ -132,12 +134,14 @@ public class Game {
     else if(command.hasLine()) {
     	toHit = command.getSecondWord() + command.getLine();
     }
-    if(item!=null) {
+    if(player.getInventory().containsKey("Sword")) {
     	System.out.println("You can't hit that");
         return;
     }
     else {
-    	System.out.println("You hit the dragon for "+ player.damage() + " hp"); 
+    	dragon.takeDamage();
+    }
+    	System.out.println("You hit the dragon for "+ player.getDamage() + " hp"); 
     }
 
     public void drink(Command command) {
