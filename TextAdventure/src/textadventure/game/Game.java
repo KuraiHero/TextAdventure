@@ -139,11 +139,15 @@ public class Game {
         }
     }
     
-    public void help() {
+    public void help(Command command) {
     	System.out.println("The offered moves are go, grab, drop, inspect, drink, toss, hit");
     	System.out.println("Go is used to move from one location to another");
     	System.out.println("Grab is used to pick up objects in the room");
     	System.out.println("Drop is used to drop items from your inventory to the room");
+    	System.out.println("Inspect is used to get a description of the object");
+    	System.out.println("Drink is used to drink arinkable items in the game to boost your stats");
+    	System.out.println("Toss is used to throw items at ememies to debuff their stats");
+    	System.out.println("Hit is used to deal damage to ememies in the game");
     }
     public void hit(Command command) {
     	String toHit = " ";
