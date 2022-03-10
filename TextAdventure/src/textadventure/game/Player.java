@@ -30,8 +30,8 @@ public class Player {
     	damage = newValue; 
     }
     
-    public void takeDamage(int value) {
-    	hp += value; 
+    public void takeDamage(int damage) {
+    	hp += damage; 
     }
     public HashMap <String, Item> getInventory() {
     	return inventory;
@@ -43,7 +43,7 @@ public class Player {
     
     
     public String getInventoryString() {
-        String returnString = "Inventory: ";
+        String returnString = "Player Inventory: ";
         Set<String> keys = inventory.keySet();
         for (String item: keys) {
             returnString += "\"" + item + "\" ";

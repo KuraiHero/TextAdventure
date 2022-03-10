@@ -18,6 +18,14 @@ public class Game {
         player= new Player("tyler", 100, 10);
         dragon= new Player("dragon", 1000, 30);
     }
+    public void printTitle() {
+    	System.out.println(" |   |                       |              |      |   |                           ");
+    	System.out.println("  |   |   _` |  |   |  __ \\   __|   _ \\   _` |      |   |   _ \\   |   |   __|   _ \\");
+    	System.out.println("  ___ |  (   |  |   |  |   |  |     __/  (   |      ___ |  (   |  |   | \\__ \\   __/");
+    	System.out.println(" _|  _| \\__,_| \\__,_| _|  _| \\__| \\___| \\__,_|     _|  _| \\___/  \\__,_| ____/ \\___| ");
+    	System.out.println("                                                                                    ");
+    	System.out.println("Type: Play");
+    }
 
     public static void main(String[] args) {
         Game game= new Game();
@@ -31,6 +39,12 @@ public class Game {
         System.out.println(currentLocation.getExitString());
         System.out.println(currentLocation.getInventoryString());
         System.out.println(player.getInventoryString());
+        System.out.println(player.getDamage() + " is " + player.getName() + " damage");
+    	System.out.println(player.getHp() + " is " + player.getName() + " HP");
+    	if(currentLocation.equals(dragonLair)) {
+    	System.out.println(dragon.getDamage() + " is the dragon's damage"); 
+    	System.out.println(dragon.getHp() + " is the dragon's HP");
+    	}
     }
 
     public void setupGame(){
@@ -42,6 +56,7 @@ public class Game {
 
         Item itemShield = new Item("shield", "long description", false);
         itemSword = new Item("sword", "long description", false);
+        Item itemJournal = new Item("journal", "long description", false);
         itemRedPotion = new Item("Red Potion", "long description", true);
         itemGreenPotion = new Item("Green Potion", "long description", true);
 
@@ -57,6 +72,7 @@ public class Game {
 
         corridorOfCastle.setItem("Shield", itemShield);
         corridorOfCastle.setItem("Sword", itemSword);
+        hauntedLibrary.setItem("Journal", itemJournal);
         frankensteinsLab.setItem("Red Potion", itemRedPotion);
         frankensteinsLab.setItem("Green Potion", itemGreenPotion);
         /*
@@ -69,15 +85,15 @@ public class Game {
             System.out.println(e); 
         }
         currentLocation = corridorOfCastle;
-        printInformation();
+        printTitle();
         play();
+        printInformation();
     }
 
     public void play() {
         while(true) {  
-        	System.out.println(player.getDamage() + " is the amount of damage that " + player.getName() + " inflicts on enemies");
-        	System.out.println(dragon.getDamage() + " is how much damage the dragon does"); 
-        	System.out.println(player.getDamage() + " is the amount of damage that " + player.getName() + " inflicts on enemies");
+        	
+        	
         Command command = parser.getCommand();
             try {
                 cls_var.main(); 
@@ -115,12 +131,19 @@ public class Game {
             	toss(command);
             	break;
             case "help":
-            	System.out.println("The offered moves are go, grab, drop, inspect, drink, toss, hit");
+            	help(command);
             	break;
             case "hit":
             	hit(command);
             	break;
         }
+    }
+    
+    public void help() {
+    	System.out.println("The offered moves are go, grab, drop, inspect, drink, toss, hit");
+    	System.out.println("Go is used to move from one location to another");
+    	System.out.println("Grab is used to pick up objects in the room");
+    	System.out.println("Drop is used to drop items from your inventory to the room");
     }
     public void hit(Command command) {
     	String toHit = " ";
@@ -134,12 +157,12 @@ public class Game {
     else if(command.hasLine()) {
     	toHit = command.getSecondWord() + command.getLine();
     }
-    if(player.getInventory().containsKey("Sword")) {
+    if(!player.getInventory().containsKey("Sword")) {
     	System.out.println("You can't hit that");
         return;
     }
     else {
-    	dragon.takeDamage();
+    	dragon.takeDamage(player.getDamage());
     }
     	System.out.println("You hit the dragon for "+ player.getDamage() + " hp"); 
     }

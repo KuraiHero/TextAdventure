@@ -52,7 +52,7 @@ public class Location {
     }
     
     public String getInventoryString() {
-        String returnString = "Inventory: ";
+        String returnString = "Room Inventory: ";
         Set<String> keys = inventory.keySet();
         for (String item: keys) {
             returnString += "\"" + item + "\" ";
