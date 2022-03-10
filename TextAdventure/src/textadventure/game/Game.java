@@ -91,7 +91,7 @@ public class Game {
     }
 
     public void play() {
-        while(true) {  
+        while(loseGame() || winGame()) {  
         	
         	
         Command command = parser.getCommand();
@@ -102,6 +102,12 @@ public class Game {
             }
             processCommand(command);
             printInformation();   
+        }
+        if(player.getHp()<=0) {
+        System.out.println("You lost");
+        }
+        else if(dragon.getHp()<=0) {
+            System.out.println("You won");
         }
     }
 
@@ -167,8 +173,10 @@ public class Game {
     }
     else {
     	dragon.takeDamage(player.getDamage());
+    	player.takeDamage(dragon.getDamage());
     }
     	System.out.println("You hit the dragon for "+ player.getDamage() + " hp"); 
+    	System.out.println("The dragon hit you for "+ dragon.getDamage() + " hp"); 
     }
 
     public void drink(Command command) {
@@ -334,5 +342,22 @@ public class Game {
              */
         }
         currentLocation = nextLocation;
+    }
+        
+        public boolean loseGame() {
+        	if (player.getHp()<= 0) {
+        			return false;
+        }
+        	else {
+        		return true;
+        	}
+    }
+        public boolean winGame() {
+        	if (dragon.getHp()<= 0) {
+        			return true;
+        }
+        	else {
+        		return false;
+        	}
     }
 }

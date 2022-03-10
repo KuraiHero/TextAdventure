@@ -31,7 +31,7 @@ public class Player {
     }
     
     public void takeDamage(int damage) {
-    	hp += damage; 
+    	hp -= damage; 
     }
     public HashMap <String, Item> getInventory() {
     	return inventory;
