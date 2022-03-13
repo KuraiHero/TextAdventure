@@ -54,7 +54,6 @@ public class Game {
         Location frankensteinsLab = new Location("Frankensteins Lab", "Short description of room", "long description of room");
         dragonLair = new Location("Dragon Lair", "Short description of room", "long description of room");
 
-        Item itemShield = new Item("shield", "long description", false);
         itemSword = new Item("sword", "long description", false);
         Item itemJournal = new Item("journal", "long description", false);
         itemRedPotion = new Item("Red Potion", "long description", true);
@@ -70,7 +69,6 @@ public class Game {
         frankensteinsLab.setExit("Haunted Library", hauntedLibrary);
         dragonLair.setExit("Draculas Bedroom", draculasBedroom);
 
-        corridorOfCastle.setItem("Shield", itemShield);
         corridorOfCastle.setItem("Sword", itemSword);
         hauntedLibrary.setItem("Journal", itemJournal);
         frankensteinsLab.setItem("Red Potion", itemRedPotion);
