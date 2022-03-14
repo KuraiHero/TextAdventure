@@ -26,6 +26,14 @@ public class Game {
     	System.out.println("                                                                                    ");
     	System.out.println("Type: Play");
     }
+    public void printIntro() {
+    	System.out.println("You are an adventurer trying to help your poor villiage that has stumbled upon a haunted house.");
+    	System.out.println("You don't have anything on you but are excited to go in to the house in search for riches.");
+    	System.out.println("As you walk into the front doors you feel a breath of hot air on the back of your neck that sends chills down your spine.");
+    	System.out.println("To add to the suspense the doors slam shut behind you.");
+    	System.out.println("You realize that the only way out is to defeat some type of boss at the end of the house.");
+    	System.out.println("You clench your fist and decide that you won't leave the house until you have beaten the boss and taken a prize home.")''
+    }
 
     public static void main(String[] args) {
         Game game= new Game();
@@ -48,16 +56,16 @@ public class Game {
     }
 
     public void setupGame(){
-        Location corridorOfCastle =new Location("Corridor of Castle", "You have stepped in a romm that surrounds you with knight's armor with a sword and shield and the room seems to split off into two other rooms.", "long description of room");
-        Location hauntedLibrary = new Location("Haunted Library", "Short description of room", "long description of room");
-        Location draculasBedroom = new Location("Draculas Bedroom", "Short description of room", "long description of room");
-        Location frankensteinsLab = new Location("Frankensteins Lab", "Short description of room", "long description of room");
-        dragonLair = new Location("Dragon Lair", "Short description of room", "long description of room");
+        Location corridorOfCastle =new Location("Corridor of Castle", "You have stepped in a romm that surrounds you with knight's armor with a sword and shield and the room seems to split off into two other rooms.", "You walk into a haunted castle in the search for riches. The corridor of the castle is lined with knight’s armor on each side with swords and shields in the hands. There are two doors, one to the eas and the other to the west.");
+        Location hauntedLibrary = new Location("Haunted Library", "The door that you have walked through lead you into a library with cobwebs and shelves of books everywhere.", "You have been lead to a library that looks as if i hasn’t been touched in years. It has cobwebs in every corner and books stacked on many shelves. In the back of the library contains a huge journal that says, The Life of Frankenstein.");
+        Location draculasBedroom = new Location("Draculas Bedroom", "You walk into a room with old paintings illuminated by candles which all surround a coffin.", "Dracula’s room is filled with ancient paintings from Transylvania. The room is dimly lit with many candles scattered throughout the room. The coffin is sitting in the middle of the room with a skinned black bear in front of it.");
+        Location frankensteinsLab = new Location("Frankensteins Lab", "It seems to be a secret laboratory that Frankenstein was birthed in.", "You walk into a laboratory that reminds you of the birthplace of Frankenstein. You see smashed glass and spilled liquid all over the ground. There is also two vials of green and red liquid in syringes.");
+        dragonLair = new Location("Dragon Lair", "You have walked into a dungeon where you see a dragon sleeping on a pile of gold.", "You have walked into the dungeon of the sleeping dragon. The dragon is sleeping on a huge mount of gold but then awakens as it hears your footsteps. You are faced with your final task of defeating the dragon and leaving alive.");
 
-        itemSword = new Item("sword", "long description", false);
-        Item itemJournal = new Item("journal", "long description", false);
-        itemRedPotion = new Item("Red Potion", "long description", true);
-        itemGreenPotion = new Item("Green Potion", "long description", true);
+        itemSword = new Item("sword", "A sowrd in the knight's hand that looks sharp enough to even pierce through metal", false);
+        Item itemJournal = new Item("journal", "In my discoveries about Frankenstein I was able to complete two concoction to make someone stronger and another to make someone weaker. I remember correctly the red one makes your strength tenfold while the green one makes you as weak as a baby ", false);
+        itemRedPotion = new Item("Red Potion", "Red bubbling potion that has ggives you a feeling of power", true);
+        itemGreenPotion = new Item("Green Potion", "A green bubbling potion that makes you feel drained", true);
 
         corridorOfCastle.setExit("Haunted Library", hauntedLibrary);
         corridorOfCastle.setExit("Draculas Bedroom", draculasBedroom);
@@ -84,6 +92,7 @@ public class Game {
         }
         currentLocation = corridorOfCastle;
         printTitle();
+        printIntro()
         play();
         printInformation();
     }
