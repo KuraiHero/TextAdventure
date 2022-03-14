@@ -92,7 +92,7 @@ public class Game {
         }
         currentLocation = corridorOfCastle;
         printTitle();
-        printIntro()
+        printIntro();
         play();
         printInformation();
     }
